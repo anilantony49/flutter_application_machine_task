@@ -3,6 +3,8 @@
         android:label="flutter_application_machine_task"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <service android:name="me.carda.awesome_notifications.notifications.services.NotificationService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
