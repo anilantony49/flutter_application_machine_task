@@ -1,45 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_machine_task/home_page_core.dart';
+import 'package:get/get.dart';
+import 'home_page_core.dart'; // Import the controller
 
-
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  final HomePageCore _core = HomePageCore();
-
-  // late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addObserver(this);
-    // flutterLocalNotificationsPlugin = _initializeNotifications();
-    _core.initializeNotifications();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      _core.showBackgroundNotification();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // Initialize the controller
+    final HomePageController controller = Get.put(HomePageController());
+
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Softer background color
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
@@ -76,15 +48,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () async {
-                await _core.handleOpenYouTube();
+                await controller.handleOpenYouTube();
               },
               style: ElevatedButton.styleFrom(
                 elevation: 5,
-                backgroundColor: Colors.blue, // Button color
+                backgroundColor: Colors.blue,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25), // Rounded corners
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
               child: const Text(
